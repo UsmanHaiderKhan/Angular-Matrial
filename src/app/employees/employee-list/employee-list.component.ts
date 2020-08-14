@@ -22,6 +22,7 @@ export class EmployeeListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   searchKey: string;
   displayedColumns: string[] = [
+    'imageUrl',
     'fullname',
     'email',
     'mobile',

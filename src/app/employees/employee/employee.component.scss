@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  padding: 5%;
+  * {
+    width: 100%;
+  }
+}
+.mat-radio-group {
+  display: inline-flex;
+  width: 50%;
+  justify-content: space-between;
+}
+.add-margin-bottom {
+  margin-bottom: 20px;
+}
+.button-row {
+  .mat-raised-button {
+    width: 20%;
+    margin: 0 7px;
+  }
+}
+.left-button {
+  margin-left: auto;
+}
+.mat-snack-bar-container {
+  background-color: green;
+}
