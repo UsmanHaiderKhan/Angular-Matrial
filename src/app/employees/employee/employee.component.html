@@ -1,0 +1,156 @@
+<div mat-dialog-content>
+  <mat-toolbar>
+    <span>{{
+      employeeService.form.controls["$key"].value
+        ? "Edit Employee"
+        : "New Employee"
+    }}</span>
+
+    <button
+      class="left-button"
+      mat-raised-button
+      mat-dialog-close
+      (click)="onClose()"
+      tabindex="-1"
+    >
+      <mat-icon>clear</mat-icon>
+    </button>
+  </mat-toolbar>
+  <form
+    [formGroup]="employeeService.form"
+    class="normal-form"
+    (submit)="onSubmit(employeeService.form.value)"
+  >
+    <mat-grid-list cols="2" rowHeight="300px">
+      <mat-grid-tile>
+        <div class="container">
+          <input type="hidden" formControlName="$key" />
+          <!-- ImageUrl -->
+
+          <input
+            type="file"
+            formControlName="imageUrl"
+            #fileUploader
+            name="imageUrl"
+            (change)="showImagePreview($event)"
+          />
+
+          <!-- FullName -->
+          <mat-form-field class="example-form-field">
+            <mat-label>Full Name</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Full Name"
+              formControlName="fullname"
+            />
+            <mat-error
+              *ngIf="employeeService.form.controls['fullname'].errors?.required"
+              >This Field is Required</mat-error
+            >
+          </mat-form-field>
+          <!-- Email -->
+          <mat-form-field class="example-form-field">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="email"
+              placeholder="Email"
+              formControlName="email"
+            />
+          </mat-form-field>
+          <!-- Mobile -->
+          <mat-form-field class="example-form-field">
+            <mat-label>Mobile</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="Mobile"
+              formControlName="mobile"
+            />
+            <mat-error
+              *ngIf="employeeService.form.controls['mobile'].errors?.required"
+              >This Field is Required</mat-error
+            >
+            <mat-error
+              *ngIf="employeeService.form.controls['mobile'].errors?.minlength"
+              >Minimum 11 Character is Required</mat-error
+            >
+          </mat-form-field>
+          <!-- City -->
+          <mat-form-field class="example-form-field">
+            <mat-label>City</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="City"
+              formControlName="city"
+            />
+          </mat-form-field>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="container">
+          <div class="add-margin-bottom">
+            <!-- Gender -->
+            <mat-radio-group formControlName="gender">
+              <mat-radio-button value="1">Male</mat-radio-button>
+              <mat-radio-button value="2">Female</mat-radio-button>
+              <mat-radio-button value="3">Other</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <!-- Drop Down -->
+          <mat-form-field>
+            <mat-label>Select Department</mat-label>
+            <mat-select name="department" formControlName="department">
+              <mat-option
+                *ngFor="let dep of departmentService.array"
+                [value]="dep.$key"
+              >
+                {{ dep.code }}-{{ dep.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <!-- Hiring Date -->
+          <mat-form-field>
+            <mat-label>Choose Hiring Date</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="hireDate"
+              placeholder="Hire Date"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <!-- Job Status -->
+          <div class="add-margin-bottom">
+            <mat-checkbox formControlName="isPermanant">
+              IsPermanant</mat-checkbox
+            >
+          </div>
+          <div class="button-row">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="employeeService.form.invalid"
+            >
+              Submit
+            </button>
+            <button mat-raised-button (click)="onReset()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>
