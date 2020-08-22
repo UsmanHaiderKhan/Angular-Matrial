@@ -62,6 +62,9 @@ export class EmployeeComponent implements OnInit {
           .subscribe();
       } else {
         this.employeeService.updateEmployee(this.employeeService.form.value);
+        this.employeeService.onInitialLizeFormGroup();
+        this.notificationService.openSnackBar('Updated SuccessFully');
+        this.onClose();
       }
     }
   }
